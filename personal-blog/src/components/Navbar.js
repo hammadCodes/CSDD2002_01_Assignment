@@ -1,29 +1,36 @@
+// src/components/Navbar.js
 import React from "react";
-import logo from "../logo.png";
+import PropTypes from "prop-types";
 
-const Navbar = () => {
+const Navbar = ({ logo, links }) => {
   return (
     <header>
-      <div class="hc-container-logos">
-        <div class="hc-container-outer">
-          <div class="hc-container-logos__inner">
-            <img class="hc-logo" src={logo} alt="Logo" />
-            <div class="hc-links__container">
-              <a href="/" class="hc-link">
-                Home
-              </a>
-              <a href="#blogs-section" class="hc-link">
-                Blogs
-              </a>
-              <a href="/" class="hc-link">
-                Contact
-              </a>
+      <div className="hc-container-logos">
+        <div className="hc-container-outer">
+          <div className="hc-container-logos__inner">
+            <img className="hc-logo" src={logo} alt="Logo" />
+            <div className="hc-links__container">
+              {links.map((link, index) => (
+                <a key={index} href={link.href} className="hc-link">
+                  {link.label}
+                </a>
+              ))}
             </div>
           </div>
         </div>
       </div>
     </header>
   );
+};
+
+Navbar.propTypes = {
+  logo: PropTypes.string.isRequired,
+  links: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      href: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default Navbar;
